@@ -19,12 +19,7 @@ public class SubInstruction extends Instruction {
         super("sub", OPCODE);
     }
 
-    @Override
-    public Status execute(Target dst, int dstIndex, Target src, int srcIndex, Status status) {
-
-        int a = (char) dst.get(dstIndex);
-        int b = (char) src.get(srcIndex);
-
+    protected static Status sub(int a, int b, Status status, Target dst, int dstIndex){
         int result = a - b;
 
         status.setSignFlag(Util.checkSign16(result));
@@ -38,20 +33,18 @@ public class SubInstruction extends Instruction {
     }
 
     @Override
-    public Status execute(Target dst, int dstIndex, int src, Status status) {
+    public Status execute(Target dst, int dstIndex, Target src, int srcIndex, Status status) {
+        int a = (char) dst.get(dstIndex);
+        int b = (char) src.get(srcIndex);
 
+        return sub(a, b, status, dst, dstIndex);
+    }
+
+    @Override
+    public Status execute(Target dst, int dstIndex, int src, Status status) {
         int a = (char) dst.get(dstIndex);
         int b = (char) src;
 
-        int result = a - b;
-
-        status.setSignFlag(Util.checkSign16(result));
-        status.setZeroFlag((char) result == 0);
-        status.setOverflowFlag(Util.checkOverFlowSub16(a, b));
-        status.setCarryFlag(Util.checkCarry16(result));
-
-        dst.set(dstIndex, result);
-
-        return status;
+        return sub(a, b, status, dst, dstIndex);
     }
 }

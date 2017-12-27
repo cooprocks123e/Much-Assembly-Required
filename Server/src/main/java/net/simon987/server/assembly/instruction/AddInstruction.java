@@ -23,7 +23,7 @@ public class AddInstruction extends Instruction {
         super("add", OPCODE);
     }
 
-    private static Status add(int a, int b, Status status, Target dst, int dstIndex) {
+    protected static Status add(int a, int b, Status status, Target dst, int dstIndex) {
         int result = a + b;
 
         status.setSignFlag(Util.checkSign16(result));

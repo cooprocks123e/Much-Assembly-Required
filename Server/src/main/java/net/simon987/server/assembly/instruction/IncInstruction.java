@@ -22,13 +22,4 @@ public class IncInstruction extends AddInstruction {
 
         return add(a, b, status, dst, dstIndex);
     }
-
-    @Override
-    public Status execute(Target dst, int dstIndex, Status status) {
-
-        int a = (char) dst.get(dstIndex);
-        int b = 1;
-
-        return add(a, b, status, dst, dstIndex);
-    }
 }
